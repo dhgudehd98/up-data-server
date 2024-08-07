@@ -1,8 +1,12 @@
-package com.up.and.down.product.entity;
+package com.sh.app.chroling.entity;
 
-import jakarta.persistence.*;
+
+
+
 import lombok.*;
 
+
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -11,10 +15,12 @@ import java.util.Set;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "source_site")
     private String sourceSite; // 출처 페이지
     @Embedded
     private ProductInformation productInformation;
