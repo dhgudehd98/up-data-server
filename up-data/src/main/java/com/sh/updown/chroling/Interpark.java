@@ -1,10 +1,9 @@
-package com.sh.app.chroling.selenium;
+package com.sh.updown.chroling;
 
 
 
-import com.sh.app.chroling.entity.Product;
-import com.sh.app.chroling.entity.ProductInformation;
-import com.sh.app.chroling.repository.DataRepository;
+import com.sh.updown.dto.ProductDto;
+import com.sh.updown.entity.ProductInformation;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,23 +12,21 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class InterparkBySelenium implements CommandLineRunner{
+public class Interpark {
 
 
-    private final DataRepository dataRepository;
 
+    public List<ProductDto> interparkChroling() throws Exception {
 
-    @Override
-    public void run(String... args) throws Exception {
+        List<ProductDto> interparkList = new ArrayList<>();
         // WebDriverManager를 사용하여 ChromeDriver 설정
         System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
 
@@ -109,12 +106,12 @@ public class InterparkBySelenium implements CommandLineRunner{
                             .area(departureLocation) // 출발지역
                             .build();
                     //인터파크에는 시작 날짜랑 여행일 존재하지 않음 -> 몇박 몇일인지만 존재
-                    Product chrolingData = Product.builder()
+                    ProductDto chrolingData = ProductDto.builder()
                             .sourceSite(site)
-                            .productInformation(travelInformation)
+                            .productInformationDto(travelInformation)
                             .build();
 
-                    dataRepository.save(chrolingData);
+                    interparkList.add(chrolingData);
                 } catch (Exception e) {
                     // 오류가 발생하면 출력
                     e.printStackTrace();
@@ -126,5 +123,7 @@ public class InterparkBySelenium implements CommandLineRunner{
             // 브라우저 종료
             driver.quit();
         }
+
+        return interparkList;
     }
 }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/up-data-server.iml" filepath="$PROJECT_DIR$/.idea/up-data-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/up-data.main.iml" filepath="$PROJECT_DIR$/.idea/modules/up-data.main.iml" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,4 @@
-package com.sh.app.chroling.entity;
+package com.sh.updown.entity;
 
 import lombok.Getter;
 

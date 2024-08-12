@@ -1,37 +1,33 @@
-package com.sh.app.chroling.jsoup;
+package com.sh.updown.chroling;
 
 
-
-
-import com.sh.app.chroling.entity.Product;
-import com.sh.app.chroling.entity.ProductInformation;
-import com.sh.app.chroling.repository.DataRepository;
+import com.sh.updown.dto.ProductDto;
+import com.sh.updown.entity.ProductInformation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
-public class Naver  {
+public class Naver {
 
-    private final DataRepository dataRepository;
+  public List<ProductDto> naverChroling() throws IOException {
+      String url = "https://pkgtour.naver.com/domestic-list?destination=14&departureDate=2024.08.03.%2C2024.08.17."; // 실제 URL로 변경
+      Document doc = Jsoup.connect(url).get();
 
-   public static void main(String[] args) throws IOException {
-        String url = "https://pkgtour.naver.com/domestic-list?destination=14&departureDate=2024.08.03.%2C2024.08.17."; // 실제 URL로 변경
-
-        // HTTP 요청을 보내고 HTML을 가져옵니다.
-        Document doc = Jsoup.connect(url).get();
-
-        // 페이지에서 필요한 데이터를 추출합니다.
+      List<ProductDto> productList = new ArrayList<>();
+        // 데이터 추출
         Elements items = doc.select("li.item.DomesticProduct");
         for (Element item : items) {
             String site = "네이버 티켓 패키지";
@@ -54,7 +50,8 @@ public class Naver  {
             // <a class="anchor"> 링크 가져오기
             String detailUrl = item.selectFirst("a.anchor").attr("href");
 
-//             TravelInformation 객체 생성
+
+
             ProductInformation travelInfo = ProductInformation.builder()
                     .title(title)
                     .nights(nights) // 여행 기간
@@ -66,16 +63,27 @@ public class Naver  {
                     .area(area) // 상세 링크
                     .build();
 
-            // ChrolingData 객체 생성
-            Product naverTour = Product.builder()
-                    .sourceSite(site)
-                    .productInformation(travelInfo)
-                    .build();
-            System.out.println(naverTour.toString());
+           ProductInformation information = ProductInformation.builder()
+                   .title(title)
+                   .nights(nights) // 여행 기간
+                   .start_date(start_date) // 시작 날짜
+                   .price(price) // 가격
+                   .thumbnailUrl(thumbnailUrl) // 이미지 링크
+                   .detailUrl(detailUrl)
+                   .travelAgency(sellerSrc)
+                   .area(area) // 상세 링크
+                   .build();
 
-            // 데이터 저장
-            //dataRepository.save(naverTour);
-            System.out.println(sellerSrc);
+            ProductDto naverTour = ProductDto.builder()
+                    .sourceSite(site)
+                    .productInformationDto(information)
+                    .build();
+
+
+            log.debug("{}", naverTour.toString());
+            productList.add(naverTour);
         }
+
+        return productList;
     }
 }

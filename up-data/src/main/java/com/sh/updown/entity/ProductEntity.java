@@ -1,8 +1,9 @@
-package com.sh.app.chroling.entity;
+package com.sh.updown.entity;
 
 
 
 
+import com.sh.updown.dto.ProductDto;
 import lombok.*;
 
 
@@ -16,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product {
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,4 +35,16 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Set<TravelCategory> travelCategories; // 여행 카테고리
     private boolean isVisible; // 페이지 노출 가능 여부
+
+
+    public ProductEntity toEntity(ProductDto productDto) {
+        return ProductEntity.builder()
+                .id(productDto.getId())
+                .sourceSite(productDto.getSourceSite())
+                .productInformation(productDto.getProductInformationDto())
+                .viewCount(productDto.getViewCount())
+                .travelCategories(productDto.getTravelCategories())
+                .isVisible(productDto.isVisible())
+                .build();
+    }
 }

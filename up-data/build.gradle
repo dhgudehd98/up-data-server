@@ -37,9 +37,14 @@ dependencies {
     //jsoup
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.17.2'
 
-
+    //ChromDriver && Selenium
     implementation 'io.github.bonigarcia:webdrivermanager:5.3.2'
     implementation 'org.seleniumhq.selenium:selenium-java:4.10.0'
+
+    //Spring batch
+    implementation group: 'org.springframework.batch', name: 'spring-batch-core', version: '4.3.3'
+    implementation group: 'org.springframework.batch', name: 'spring-batch-infrastructure', version: '4.3.3'
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
 }
 
 tasks.named('test') {

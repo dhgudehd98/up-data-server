@@ -1,4 +1,4 @@
-package com.sh.app.chroling.entity;
+package com.sh.updown.entity;
 
 
 
@@ -9,7 +9,6 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Embeddable
 @Data
