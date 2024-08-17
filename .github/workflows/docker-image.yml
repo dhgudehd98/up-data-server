@@ -12,7 +12,6 @@ on:
 jobs:
   # 1. CI - 통합(build)
   build:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       # 저장소의 커밋된 master브랜치 내려받기
