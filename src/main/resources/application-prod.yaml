@@ -8,6 +8,23 @@ spring:
     username: ${PROD_DB_USERNAME}
     password: ${PROD_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  batch:
+    job:
+      enabled: true
+    jdbc:
+      initialize-schema: always
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    root: info
+    com.sh.updown: debug
 app:
   version:
     0.0.2

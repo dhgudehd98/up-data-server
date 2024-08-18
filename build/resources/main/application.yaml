@@ -29,3 +29,6 @@ logging:
 server:
   servlet:
     context-path: /app
+
+app:
+  version: 0.0.1
