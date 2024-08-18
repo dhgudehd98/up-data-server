@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    default: test
+  application:
+    name: up-data
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://223.130.155.16/traveldb
+#    username: upProject
+#    password: upProject_password1@
+  batch:
+    job:
+      enabled: true
+    jdbc:
+      initialize-schema: always
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    root: info
+    com.sh.updown: debug
+
+server:
+  servlet:
+    context-path: /app
