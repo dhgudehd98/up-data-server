@@ -14,14 +14,14 @@ import java.util.Date;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-//@EnableScheduling
+@EnableScheduling
 public class SchedulingJobConfiguration {
 
     private final JobLauncher jobLauncher;
 //    private final Job mySpringBatchJob;  // Spring Batch Job 주입
     private final Job chrolingJob;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0 0 * * *") // 매일 자정 12시에 변경 하도록 -> 작동되는거 확인되면 저장 주기 일주일로 변경
     public void scheduleJobLauncher() throws Exception {
         // 매 실행마다 고유한 JobParameters를 생성하여 새로운 JobInstance를 생성하도록 합니다.
         JobParameters jobParameters = new JobParametersBuilder()
