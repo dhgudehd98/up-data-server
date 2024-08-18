@@ -27,4 +27,4 @@ logging:
     com.sh.updown: debug
 app:
   version:
-    0.0.2
+    0.0.3
