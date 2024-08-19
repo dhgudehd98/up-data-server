@@ -11,7 +11,7 @@ RUN yum update -y && \
     yum clean all
 
 # Chromedriver 다운로드 및 설치
-RUN wget https://chromedriver.storage.googleapis.com/127.0.0/chromedriver_linux64.zip && \
+RUN wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chromedriver-linux64.zip && \
     unzip chromedriver_linux64.zip && \
     mv chromedriver /usr/local/bin/chromedriver && \
     chmod +x /usr/local/bin/chromedriver && \
