@@ -6,24 +6,19 @@ echo "Starting setup..."
 # 패키지 업데이트
 yum update -y
 
-# 필요한 패키지 설치 (예: wget, unzip)
-yum install -y wget unzip
+# 필요한 패키지 설치 (예: wget, unzip, libdbus)
+yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdamage libXext libXi libXrandr libXtst libXss cups-libs dbus-glib GConf2
 
-# Chrome Headless Shell 다운로드 및 설치
-#yum install -y dbus-libs
-echo "Downloading and installing Chrome Headless Shell..."
-#wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chrome-headless-shell-linux64.zip
-#unzip chrome-headless-shell-linux64.zip -d /usr/local/bin/
-yum install -y atk
+# Chrome 다운로드 및 설치
+echo "Downloading and installing Chrome..."
 wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chrome-linux64.zip
-unzip  chrome-linux64.zip -d /usr/local/bin/
-# 설치 완료 알림
-echo "Chrome Headless Shell setup complete."
+unzip chrome-linux64.zip -d /usr/local/bin/
 
+# 설치 완료 알림
+echo "Chrome setup complete."
 
 # Chromedriver 설치
 echo "Downloading and installing Chromedriver..."
-yum install -y libxcb
 wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chromedriver-linux64.zip
 unzip chromedriver-linux64.zip
 mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
