@@ -38,6 +38,7 @@ public class Interpark {
 
         //서버에서 chromedriver 구축
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.out.println("ChromeDriver path set to: " + System.getProperty("webdriver.chrome.driver"));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--headless"); // 브라우저 UI를 표시하지 않음 (headless 모드)
