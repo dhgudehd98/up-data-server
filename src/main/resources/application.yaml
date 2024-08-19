@@ -3,11 +3,6 @@ spring:
     default: test
   application:
     name: up-data
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://223.130.155.16/traveldb
-#    username: upProject
-#    password: upProject_password1@
   batch:
     job:
       enabled: true
@@ -20,6 +15,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  elasticsearch:
+    uris: 101.79.11.20:9200
+    username: ${ELASTIC_USERNAME}
+    password: ${ELASTIC_PASSWORD}
 
 logging:
   level:

@@ -1,6 +1,5 @@
 package com.sh.updown.entity;
 
-
 import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;

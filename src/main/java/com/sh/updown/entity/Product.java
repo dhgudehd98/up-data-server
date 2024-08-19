@@ -1,6 +1,5 @@
 package com.sh.updown.entity;
 
-
 import com.sh.updown.dto.ProductDto;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
