@@ -10,7 +10,7 @@ on:
       - closed
 
 jobs:
-  # 1. CI - 통합(build)
+  # 1. CI - 통합(build
   build:
     runs-on: ubuntu-latest
     steps:
