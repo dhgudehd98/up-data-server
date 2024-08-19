@@ -4,7 +4,7 @@ package com.sh.updown.batch.job;
 import com.sh.updown.chroling.Interpark;
 import com.sh.updown.chroling.Naver;
 import com.sh.updown.dto.ProductDto;
-import com.sh.updown.entity.ProductEntity;
+import com.sh.updown.entity.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -102,7 +102,7 @@ public class ChrolingJobConfiguration {
     public Step interparkChrolingStep() throws Exception {
         log.info("InterParkChrolling이 시작됩니다.");
         return stepBuilderFactory.get("interparkChrolingStep")
-                .<ProductDto, ProductEntity>chunk(5)
+                .<ProductDto, Product>chunk(5)
                 .reader(interParkReader())
                 .processor(interParkProcessor())
                 .writer(interparkWriter())
@@ -118,16 +118,16 @@ public class ChrolingJobConfiguration {
 
     @Bean
     @StepScope
-    public ItemProcessor<ProductDto, ProductEntity> interParkProcessor() {
+    public ItemProcessor<ProductDto, Product> interParkProcessor() {
         log.info("==== InterPark ItemProcessor를 시작합니다. ====");
         return new InterParkeProcessor();
     }
 
     @Bean
     @StepScope
-    public JpaItemWriter<ProductEntity> interparkWriter() {
+    public JpaItemWriter<Product> interparkWriter() {
         log.info("==== InterPark ItemWriter를 시작합니다. ====");
-        return new JpaItemWriterBuilder<ProductEntity>()
+        return new JpaItemWriterBuilder<Product>()
                 .entityManagerFactory(entityManagerFactory)
                 .usePersist(true)
                 .build();
@@ -137,7 +137,7 @@ public class ChrolingJobConfiguration {
     public Step naverChrolingStep() throws IOException {
         log.info("NaverChroling이 시작됩니다.");
         return stepBuilderFactory.get("naverChrolingStep")
-                .<ProductDto, ProductEntity>chunk(5)
+                .<ProductDto, Product>chunk(5)
                 .reader(naverReader())
                 .processor(naverProcessor())
                 .writer(naverWriter())
@@ -153,16 +153,16 @@ public class ChrolingJobConfiguration {
 
     @Bean
     @StepScope
-    public ItemProcessor<ProductDto, ProductEntity> naverProcessor() {
+    public ItemProcessor<ProductDto, Product> naverProcessor() {
         log.info("==== Naver ItemProcessor를 시작합니다. ====");
         return new NaverItemProcessor();
     }
 
     @Bean
     @StepScope
-    public JpaItemWriter<ProductEntity> naverWriter() {
+    public JpaItemWriter<Product> naverWriter() {
         log.info("==== Naver ItemWriter를 시작합니다. ====");
-        return new JpaItemWriterBuilder<ProductEntity>()
+        return new JpaItemWriterBuilder<Product>()
                 .entityManagerFactory(entityManagerFactory)
                 .usePersist(true)
                 .build();

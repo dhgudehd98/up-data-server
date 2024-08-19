@@ -1,17 +1,17 @@
 package com.sh.updown.batch.job;
 
 import com.sh.updown.dto.ProductDto;
-import com.sh.updown.entity.ProductEntity;
+import com.sh.updown.entity.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 
 @Slf4j
-public class InterParkeProcessor implements ItemProcessor<ProductDto,ProductEntity> {
+public class InterParkeProcessor implements ItemProcessor<ProductDto, Product> {
 
-    ProductEntity productEntity = new ProductEntity();
+    Product product = new Product();
     @Override
-    public ProductEntity process(ProductDto productDto) throws Exception {
-        ProductEntity product = productEntity.toEntity(productDto);
+    public Product process(ProductDto productDto) throws Exception {
+        Product product = this.product.toEntity(productDto);
         return product;
     }
 }

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductEntity {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,8 +31,8 @@ public class ProductEntity {
     @Column(name = "view_count")
     private int viewCount;  // 조회수
 
-    public ProductEntity toEntity(ProductDto productDto) {
-        return ProductEntity.builder()
+    public Product toEntity(ProductDto productDto) {
+        return Product.builder()
                 .id(productDto.getId())
                 .sourceSite(productDto.getSourceSite())
                 .productInformation(productDto.getProductInformationDto())
