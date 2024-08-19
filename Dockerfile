@@ -5,7 +5,7 @@ FROM amazoncorretto:17
 LABEL maintainer="up-data<ohd7150@gmail.com>"
 
 # 파일 복사
-COPY ${JAR_FILE_PATH} /data.jar
+COPY *.jar /data.jar
 COPY start.sh /usr/local/bin/start.sh
 
 # 스크립트 실행 권한 부여 및 패키지 설치 명령어 추가
