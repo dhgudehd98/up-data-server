@@ -13,7 +13,7 @@ COPY ${JAR_FILE_PATH} /data.jar
 # start.sh 스크립트 복사
 COPY start.sh /usr/local/bin/start.sh
 
-# start.sh 스크립트 실행 권한 부여
+# start.sh 스크립트 실행 권한 부
 RUN chmod +x /usr/local/bin/start.sh
 
 # start.sh 스크립트를 ENTRYPOINT로 설정
