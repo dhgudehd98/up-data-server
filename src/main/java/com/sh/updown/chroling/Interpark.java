@@ -40,9 +40,12 @@ public class Interpark {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         System.out.println("ChromeDriver path set to: " + System.getProperty("webdriver.chrome.driver"));
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        options.setBinary("/usr/local/bin/chrome-headless-shell-linux64/chrome-headless-shell"); //
-//        options.addArguments("--headless"); // 브라우저 UI를 표시하지 않음 (headless 모드)
+        options.setBinary("/usr/local/bin/chrome-headless-shell-linux64/chrome-headless-shell");
+        options.addArguments("--headless"); // 헤드리스 모드로 실행
+        options.addArguments("--no-sandbox"); // 샌드박스를 비활성화
+        options.addArguments("--disable-dev-shm-usage"); // /dev/shm 사용 비활성화 (Docker 환경에서 필요할 수 있음)
+        options.addArguments("--disable-gpu"); // GPU 사용 비활성화
+        options.addArguments("--remote-allow-origins=*"); // 원격 연결 허용
         WebDriver driver = new ChromeDriver(options);
 
         Destination[] destinations = Destination.values();
