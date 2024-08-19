@@ -1,3 +1,6 @@
+#!/bin/bash
+
+# 패키지 업데이트
 sudo yum update -y
 
 # 필요한 패키지 설치 (예: wget, unzip)
