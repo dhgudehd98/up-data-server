@@ -55,6 +55,7 @@ public class Interpark {
                 Destination destination = destinations[i];
 
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
                 WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.itemInfo > div.itemInfoTop > div.itemInfoMain > div.title")));
 
                 String site = "인터파크";

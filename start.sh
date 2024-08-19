@@ -10,6 +10,7 @@ yum update -y
 yum install -y wget unzip
 
 # Chrome Headless Shell 다운로드 및 설치
+yum install -y dbus-libs
 echo "Downloading and installing Chrome Headless Shell..."
 wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chrome-headless-shell-linux64.zip
 unzip chrome-headless-shell-linux64.zip -d /usr/local/bin/
