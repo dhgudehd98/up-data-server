@@ -6,8 +6,7 @@ LABEL maintainer="up-data<ohd7150@gmail.com>"
 
 # 필요한 패키지 및 Chrome 설치
 RUN yum update -y && \
-    yum install -y wget unzip curl && \
-    curl https://intoli.com/install-google-chrome.sh | bash && \
+    yum install -y wget unzip curl google-chrome-stable && \
     ln -s /usr/bin/google-chrome /usr/bin/chrome && \
     yum clean all
 
