@@ -13,9 +13,9 @@ yum install -y wget unzip
 yum install -y dbus-libs
 echo "Downloading and installing Chrome Headless Shell..."
 #wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chrome-headless-shell-linux64.zip
+#unzip chrome-headless-shell-linux64.zip -d /usr/local/bin/
 wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chrome-linux64.zip
-unzip chrome-headless-shell-linux64.zip -d /usr/local/bin/
-
+unzip  chrome-linux64.zip -d /usr/local/bin/
 # 설치 완료 알림
 echo "Chrome Headless Shell setup complete."
 
