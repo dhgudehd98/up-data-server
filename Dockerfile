@@ -15,5 +15,5 @@ RUN chmod +x /usr/local/bin/start.sh \
     && yum update -y \
     && yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdamage libXext libXi libXrandr libXtst libXss cups-libs dbus-glib GConf2 libxcb
 
-# 엔트리 포인트 설정
+# 엔트리 포인트
 ENTRYPOINT ["/usr/local/bin/start.sh"]
