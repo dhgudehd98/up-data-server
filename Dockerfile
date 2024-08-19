@@ -16,7 +16,7 @@ COPY start.sh /usr/local/bin/start.sh
 # start.sh 스크립트 실행 권한 부
 RUN chmod +x /usr/local/bin/start.sh
 
-# start.sh 스크립트를 ENTRYPOINT로 설정
+# start.sh 스크립트를 파일 실행 -> java 파일 실행
 ENTRYPOINT ["/usr/local/bin/start.sh"]
 
 

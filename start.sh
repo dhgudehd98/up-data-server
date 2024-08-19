@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 스크립트 실행 시작 알림
+echo "Starting setup..."
+
 # 패키지 업데이트
 sudo yum update -y
 
@@ -7,6 +10,7 @@ sudo yum update -y
 sudo yum install -y wget unzip
 
 # Chrome Headless Shell 다운로드 및 설치
+echo "Downloading and installing Chrome Headless Shell..."
 wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chrome-headless-shell-linux64.zip
 unzip chrome-headless-shell-linux64.zip -d /usr/local/bin/
 
@@ -14,8 +18,20 @@ unzip chrome-headless-shell-linux64.zip -d /usr/local/bin/
 echo "Chrome Headless Shell setup complete."
 
 # Chromedriver 설치
+echo "Downloading and installing Chromedriver..."
 wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chromedriver-linux64.zip
 unzip chromedriver-linux64.zip
 sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
 sudo chmod +x /usr/local/bin/chromedriver
+
+# Chromedriver 설치 확인
+if [ -f /usr/local/bin/chromedriver ]; then
+    echo "Chromedriver installed successfully."
+else
+    echo "Chromedriver installation failed."
+    exit 1
+fi
+
+# 애플리케이션 실행
+echo "Starting application..."
 exec java -jar /data.jar
