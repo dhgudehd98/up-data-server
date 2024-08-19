@@ -96,7 +96,7 @@ public class Interpark {
 
                         ProductInformation travelInformation = ProductInformation.builder()
                                 .title(title) // 여행 제목
-                                .nights(duration) // 몇박 몇일
+                                .nights(Integer.parseInt(duration)) // 몇박 몇일
                                 .price(price) // 가격
                                 .thumbnailUrl(imageUrl) //여행지 이미지
                                 .detailUrl(detailLink) // 상품 상세페이지

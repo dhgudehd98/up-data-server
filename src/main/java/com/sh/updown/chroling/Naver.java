@@ -53,12 +53,20 @@ public class Naver {
               String area = itemOptions.size() > 0 ? itemOptions.get(0).text() : ""; // 제주출발
 
               //출발 날짜
-              String startDate = itemOptions.size() > 1 ? itemOptions.get(1).text().replaceAll("[가-힣]", "").replaceAll("\\.$", "") : ""; // 2024.08.06.화
+              String startDateData = itemOptions.size() > 1 ? itemOptions.get(1).text().replaceAll("[가-힣]", "").replaceAll("\\.$", "") : ""; // 2024.08.06.화
               DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-              LocalDate start_date = LocalDate.parse(startDate, formatter);
+              LocalDate startDate = LocalDate.parse(startDateData, formatter);
 
               // 몇박 몇일인지 추가
-              String nights = itemOptions.size() > 2 ? itemOptions.get(2).text() : ""; // 2박 3일
+              String nightsString = itemOptions.size() > 2 ? itemOptions.get(2).text() : ""; // 2박 3일
+              int nights;
+              try {
+                  nights = Integer.parseInt(nightsString.charAt(0) + "");
+              } catch(Exception e) {
+                  nights = 0;
+              }
+
+
 
               // <a class="anchor"> 링크 가져오기
               String detailUrl = item.selectFirst("a.anchor").attr("href");
@@ -68,7 +76,7 @@ public class Naver {
               ProductInformation information = ProductInformation.builder()
                       .title(title)
                       .nights(nights) // 여행 기간
-                      .start_date(start_date) // 시작 날짜
+                      .startDate(startDate) // 시작 날짜
                       .price(price) // 가격
                       .thumbnailUrl(thumbnailUrl) // 이미지 링크
                       .detailUrl(detailUrl)

@@ -20,16 +20,17 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
-    private ProductInformation productInformation;
+    private ProductInformation productInformation; // 상품 정보
 
-    @Column(name = "source_site" ,length = 500)
-    private String sourceSite; // 출처 페이지
+    // 관리 정보
     @CreationTimestamp
-    private LocalDate createDate;
-    @Column(name = "is_visible")
-    private boolean isVisible; // 페이지 노출 가능 여부
+    private LocalDate createDate; // 생성일
+    @Column(name = "source_site", length = 500)
+    private String sourceSite; // 출처 페이지
     @Column(name = "view_count")
     private int viewCount;  // 조회수
+    @Column(name = "is_visible")
+    private boolean isVisible; // 페이지 노출 가능 여부
 
     public Product toEntity(ProductDto productDto) {
         return Product.builder()

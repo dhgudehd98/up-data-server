@@ -23,10 +23,10 @@ public class ProductGroup {
 
     // 관리 정보
     private LocalDate createDate; // 생성일
-    @ElementCollection(
-            fetch = FetchType.EAGER,
-            targetClass = ProductInformation.class
-    )
+    @Embedded
+    @Column(name = "search_keyword")
+    private SearchKeyword searchKeywords; // 검색 키워드 set
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "tbl_product_group_products",
             joinColumns = @JoinColumn(name = "product_group_id")
@@ -35,8 +35,4 @@ public class ProductGroup {
     @Column(name = "product_information")
     private Map<Long, ProductInformation> productList; // 상품 목록
     private int viewCount; // 조회수
-
-    public void increaseViewCount() {
-        this.viewCount++;
-    }
 }
