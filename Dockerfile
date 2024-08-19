@@ -4,7 +4,7 @@ FROM amazoncorretto:17
 # Image meta 정보
 LABEL maintainer="up-data<ohd7150@gmail.com>"
 
-# 필요한 패키지 설
+# 필요한 패키지 설치
 RUN yum update -y && \
     yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdamage libXext libXi libXrandr libXtst libXss cups-libs dbus-glib GConf2 && \
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
