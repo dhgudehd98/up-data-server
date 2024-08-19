@@ -24,7 +24,7 @@ unzip chrome-linux64.zip -d /usr/local/bin/
 # 설치 완료 알림
 echo "Chrome setup complete."
 
-# Chromedriver설치
+# Chromedriver 설치
 echo "Downloading and installing Chromedriver..."
 yum install -y libxcb
 wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chromedriver-linux64.zip
