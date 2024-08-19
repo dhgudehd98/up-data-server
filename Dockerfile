@@ -4,17 +4,16 @@ FROM amazoncorretto:17
 # Maintainer
 LABEL maintainer="up-data<ohd7150@gmail.com>"
 
-# 스크립트 파일 복사
-COPY setup.sh /setup.sh
+# 생성할 image의 / 디렉토리에 파일 복사
+COPY ${JAR_FILE_PATH} /data.jar
 
-# 스크립트 실행 권한 부여
-RUN chmod +x /setup.sh
+# Container 구동 시 실행할 명령어
+ENTRYPOINT ["java", "-jar", "/data.jar"]
+# start.sh 스크립트 복사
+COPY start.sh /usr/local/bin/start.sh
 
-# 스크립트 실행
-RUN /setup.sh
+# start.sh 스크립트 실행 권한 부여
+RUN chmod +x /usr/local/bin/start.sh
 
-# JAR 파일 복사 (애플리케이션 실행을 위해)
-COPY build/libs/*.jar /data.jar
-
-# 컨테이너 시작 시 애플리케이션 실행
-CMD ["java", "-jar", "/data.jar"]
+# start.sh 스크립트를 ENTRYPOINT로 설정
+ENTRYPOINT ["/usr/local/bin/start.sh"]
