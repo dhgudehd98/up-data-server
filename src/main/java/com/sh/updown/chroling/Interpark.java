@@ -34,17 +34,17 @@ public class Interpark {
 
         //ChromeDriver 옵션 설정 및 연결
         //로컬 환경에서의 Chromedriver 실행
-        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
 
         //서버에서 chromedriver 구축
-//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 
         ChromeOptions options = new ChromeOptions();
 //        options.setBinary("/usr/local/bin/chrome-headless-shell-linux64/chrome-headless-shell");
-//        options.setBinary("/usr/bin/google-chrome");
-//        options.addArguments("--no-sandbox"); // 샌드박스를 비활성화
-//        options.addArguments("--disable-dev-shm-usage"); // /dev/shm 사용 비활성화 (Docker 환경에서 필요할 수 있음)
-//        options.addArguments("--disable-gpu"); // GPU 사용 비활성화
+        options.setBinary("/usr/bin/google-chrome");
+        options.addArguments("--no-sandbox"); // 샌드박스를 비활성화
+        options.addArguments("--disable-dev-shm-usage"); // /dev/shm 사용 비활성화 (Docker 환경에서 필요할 수 있음)
+        options.addArguments("--disable-gpu"); // GPU 사용 비활성화
         options.addArguments("--headless"); // 헤드리스 모드로 실행
         options.addArguments("--remote-allow-origins=*"); // 원격 연결 허용
         WebDriver driver = new ChromeDriver(options);
