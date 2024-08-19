@@ -17,6 +17,6 @@ RUN chmod +x /usr/local/bin/start.sh \
 
 RUN yum install -y at-spi2-atk  # CentOS, RHEL, Fedora 등의 경우
 # 또는
-RUN apt-get install -y libatk-bridge2.0-0  # Debian, Ubuntu 등의 경
+
 # 엔트리 포인트
 ENTRYPOINT ["/usr/local/bin/start.sh"]
