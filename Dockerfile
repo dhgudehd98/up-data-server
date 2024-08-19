@@ -4,20 +4,23 @@ FROM amazoncorretto:17
 # Image meta 정보
 LABEL maintainer="up-data<ohd7150@gmail.com>"
 
-# Build 시 사용할 변수 선언
-ARG JAR_FILE_PATH=build/libs/*.jar
+# 필요한 패키지 및 Chrome 설치
+RUN yum update -y && \
+    yum install -y wget unzip curl && \
+    curl https://intoli.com/install-google-chrome.sh | bash && \
+    ln -s /usr/bin/google-chrome /usr/bin/chrome && \
+    yum clean all
 
-# 생성할 image의 / 디렉토리에 파일 복사
+# Chromedriver 다운로드 및 설치
+RUN wget https://chromedriver.storage.googleapis.com/127.0.0/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip && \
+    mv chromedriver /usr/local/bin/chromedriver && \
+    chmod +x /usr/local/bin/chromedriver && \
+    rm chromedriver_linux64.zip
+
+# JAR 파일 복사
+ARG JAR_FILE_PATH=build/libs/*.jar
 COPY ${JAR_FILE_PATH} /data.jar
 
-# start.sh 스크립트 복사
-COPY start.sh /usr/local/bin/start.sh
-
-# start.sh 스크립트 실행 권한 부
-RUN chmod +x /usr/local/bin/start.sh
-
-# start.sh 스크립트를 파일 실행 -> java 파일 실행
-ENTRYPOINT ["/usr/local/bin/start.sh"]
-
-
-
+# 애플리케이션 실행
+ENTRYPOINT ["java", "-jar", "/data.jar"]
