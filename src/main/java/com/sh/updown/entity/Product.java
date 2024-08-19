@@ -29,8 +29,6 @@ public class Product {
     private String sourceSite; // 출처 페이지
     @Column(name = "view_count")
     private int viewCount;  // 조회수
-    @Column(name = "is_visible")
-    private boolean isVisible; // 페이지 노출 가능 여부
 
     public Product toEntity(ProductDto productDto) {
         return Product.builder()
@@ -38,7 +36,6 @@ public class Product {
                 .sourceSite(productDto.getSourceSite())
                 .productInformation(productDto.getProductInformationDto())
                 .viewCount(productDto.getViewCount())
-                .isVisible(productDto.isVisible())
                 .build();
     }
 }
