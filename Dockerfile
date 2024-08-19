@@ -5,20 +5,18 @@ FROM amazoncorretto:17
 LABEL maintainer="up-data<ohd7150@gmail.com>"
 
 ARG JAR_FILE_PATH=build/libs/*.jar
+
 # 파일 복사
-# 생성할 image의 / 디렉토리에 파일 복사
 COPY ${JAR_FILE_PATH} /data.jar
 COPY start.sh /usr/local/bin/start.sh
+
+# 환경 변수 설정
 ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
 
-
-# 스크립트 실행 권한 부여 및 패키지 설치 명령어 추가
+# 스크립트 실행 권한 부여 및 필요한 패키지 설치
 RUN chmod +x /usr/local/bin/start.sh \
     && yum update -y \
-    && yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdamage libXext libXi libXrandr libXtst libXss cups-libs dbus-glib GConf2 libxcb
+    && yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdamage libXext libXi libXrandr libXtst libXss cups-libs dbus-glib GConf2 libxcb at-spi2-atk
 
-
-# 또는
-
-# 엔트리 포인트
+# 엔트리 포인트 설정
 ENTRYPOINT ["/usr/local/bin/start.sh"]
