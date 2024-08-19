@@ -41,7 +41,7 @@ public class Interpark {
         System.out.println("ChromeDriver path set to: " + System.getProperty("webdriver.chrome.driver"));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        options.addArguments("--headless"); // 브라우저 UI를 표시하지 않음 (headless 모드)
+//        options.addArguments("--headless"); // 브라우저 UI를 표시하지 않음 (headless 모드)
         WebDriver driver = new ChromeDriver(options);
 
         Destination[] destinations = Destination.values();
