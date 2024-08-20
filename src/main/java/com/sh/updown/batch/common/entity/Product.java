@@ -1,6 +1,6 @@
-package com.sh.updown.entity;
+package com.sh.updown.batch.common.entity;
 
-import com.sh.updown.dto.ProductDto;
+import com.sh.updown.batch.common.dto.ProductDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

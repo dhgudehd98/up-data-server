@@ -18,7 +18,6 @@ import java.util.Date;
 public class SchedulingJobConfiguration {
 
     private final JobLauncher jobLauncher;
-//    private final Job mySpringBatchJob;  // Spring Batch Job 주입
     private final Job chrolingJob;
 
 //    @Scheduled(cron = "0 */5 * * * ?") // 매일 자정 12시에 변경 하도록 -> 작동되는거 확인되면 저장 주기 일주일로 변경

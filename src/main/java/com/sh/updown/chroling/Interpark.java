@@ -3,9 +3,9 @@ package com.sh.updown.chroling;
 
 
 import com.sh.updown.data.InterparkList;
-import com.sh.updown.dto.ProductDto;
-import com.sh.updown.entity.Destination;
-import com.sh.updown.entity.ProductInformation;
+import com.sh.updown.batch.common.dto.ProductDto;
+import com.sh.updown.batch.common.entity.Destination;
+import com.sh.updown.batch.common.entity.ProductInformation;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

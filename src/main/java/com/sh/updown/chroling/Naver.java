@@ -2,9 +2,9 @@ package com.sh.updown.chroling;
 
 
 import com.sh.updown.data.NaverList;
-import com.sh.updown.dto.ProductDto;
-import com.sh.updown.entity.Destination;
-import com.sh.updown.entity.ProductInformation;
+import com.sh.updown.batch.common.dto.ProductDto;
+import com.sh.updown.batch.common.entity.Destination;
+import com.sh.updown.batch.common.entity.ProductInformation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;

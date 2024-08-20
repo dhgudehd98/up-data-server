@@ -1,4 +1,4 @@
-package com.sh.updown.elastic.config;
+package com.sh.updown.batch.indexing.elastic.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

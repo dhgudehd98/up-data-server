@@ -1,4 +1,4 @@
-package com.sh.updown.entity;
+package com.sh.updown.batch.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

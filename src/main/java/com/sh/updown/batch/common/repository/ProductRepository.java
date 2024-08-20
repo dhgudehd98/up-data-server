@@ -1,6 +1,6 @@
-package com.sh.updown.repository;
+package com.sh.updown.batch.common.repository;
 
-import com.sh.updown.entity.Product;
+import com.sh.updown.batch.common.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

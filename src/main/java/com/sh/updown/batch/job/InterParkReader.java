@@ -1,7 +1,7 @@
 package com.sh.updown.batch.job;
 
 import com.sh.updown.chroling.Interpark;
-import com.sh.updown.dto.ProductDto;
+import com.sh.updown.batch.common.dto.ProductDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;

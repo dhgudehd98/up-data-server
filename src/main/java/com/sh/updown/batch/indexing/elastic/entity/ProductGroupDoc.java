@@ -1,8 +1,8 @@
-package com.sh.updown.elastic.entity;
+package com.sh.updown.batch.indexing.elastic.entity;
 
-import com.sh.updown.entity.Destination;
-import com.sh.updown.entity.ProductGroup;
-import com.sh.updown.entity.ProductInformation;
+import com.sh.updown.batch.common.entity.Destination;
+import com.sh.updown.batch.common.entity.ProductGroup;
+import com.sh.updown.batch.common.entity.ProductInformation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

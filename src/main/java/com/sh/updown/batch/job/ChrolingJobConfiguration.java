@@ -2,8 +2,8 @@ package com.sh.updown.batch.job;
 
 import com.sh.updown.chroling.Interpark;
 import com.sh.updown.chroling.Naver;
-import com.sh.updown.dto.ProductDto;
-import com.sh.updown.entity.Product;
+import com.sh.updown.batch.common.dto.ProductDto;
+import com.sh.updown.batch.common.entity.Product;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -36,17 +36,19 @@ public class ChrolingJobConfiguration {
     private final EntityManagerFactory entityManagerFactory;
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
+    private final JobListener jobListener;
     private final Naver naver;
     private final Interpark interpark;
 
     public ChrolingJobConfiguration(EntityManagerFactory entityManagerFactory,
                                     JobRepository jobRepository,
-                                    PlatformTransactionManager transactionManager,
+                                    PlatformTransactionManager transactionManager, JobListener jobListener,
                                     Naver naver,
                                     Interpark interpark) {
         this.entityManagerFactory = entityManagerFactory;
         this.jobRepository = jobRepository;
         this.transactionManager = transactionManager;
+        this.jobListener = jobListener;
         this.naver = naver;
         this.interpark = interpark;
     }
@@ -56,6 +58,7 @@ public class ChrolingJobConfiguration {
         log.debug("chrolingJob 메소드가 호출됐습니다.");
         return new JobBuilder("chrolingJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
+                .listener(jobListener)
                 .start(naverFlow())
                 .end()
                 .build();
