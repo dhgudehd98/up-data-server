@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class ProductListJsonService {
+public class ProductListJsonConvertService {
 
     private final ObjectMapper objectMapper;
 

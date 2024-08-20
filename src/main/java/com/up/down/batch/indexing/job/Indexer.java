@@ -6,7 +6,7 @@ import com.up.down.batch.common.repository.ProductGroupRepository;
 import com.up.down.batch.common.repository.ProductRepository;
 import com.up.down.batch.indexing.entity.ProductGroupDoc;
 import com.up.down.batch.indexing.repository.ProductGroupDocRepository;
-import com.up.down.batch.indexing.service.ProductListJsonService;
+import com.up.down.batch.indexing.service.ProductListJsonConvertService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,7 @@ public class Indexer {
     // elastic repo
     private final ProductGroupDocRepository productGroupDocRepo;
     // json convert service
-    private final ProductListJsonService jsonConvertService;
+    private final ProductListJsonConvertService jsonConvertService;
 
     private final LocalDate currentDate = LocalDate.now(); // DB에 저장된 데이터 중 금일 진행한 테이만 인덱싱
 
