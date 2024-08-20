@@ -3,8 +3,8 @@ package com.up.down.batch.indexing.job;
 import com.up.down.batch.common.entity.*;
 import com.up.down.batch.common.repository.ProductGroupRepository;
 import com.up.down.batch.common.repository.ProductRepository;
-import com.up.down.batch.indexing.elastic.entity.ProductGroupDoc;
-import com.up.down.batch.indexing.elastic.repository.ProductGroupDocRepository;
+import com.up.down.batch.indexing.entity.ProductGroupDoc;
+import com.up.down.batch.indexing.repository.ProductGroupDocRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
