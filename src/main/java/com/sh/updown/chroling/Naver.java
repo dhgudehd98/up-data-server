@@ -66,12 +66,8 @@ public class Naver {
                   nights = 0;
               }
 
-
-
               // <a class="anchor"> 링크 가져오기
               String detailUrl = item.selectFirst("a.anchor").attr("href");
-
-
 
               ProductInformation information = ProductInformation.builder()
                       .title(title)
@@ -94,5 +90,4 @@ public class Naver {
       }
         return productList;
     }
-
 }

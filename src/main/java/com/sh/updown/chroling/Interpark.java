@@ -121,7 +121,6 @@ public class Interpark {
                 // 브라우저 종료
                 driver.quit();
             }
-
         return interparkList;
     }
 }

@@ -17,5 +17,4 @@ public class ProductDto {
     private String sourceSite; // 출처 페이지
     private ProductInformation productInformationDto;
     private int viewCount;  // 조회수
-    private boolean isVisible; // 페이지 노출 가능 여부
 }

@@ -20,46 +20,55 @@ public class NaverList {
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverGangwondo = "https://pkgtour.naver.com/domestic-list?destination=01&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverJeollanamdo = "https://pkgtour.naver.com/domestic-list?destination=12&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverBusan = "https://pkgtour.naver.com/domestic-list?destination=08&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverGeoje = "https://pkgtour.naver.com/domestic-list?destination=0331&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverNamhae = "https://pkgtour.naver.com/domestic-list?destination=0384&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverTongyeong = "https://pkgtour.naver.com/domestic-list?destination=0322&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverGyeongju = "https://pkgtour.naver.com/domestic-list?destination=0413&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverYeosu = "https://pkgtour.naver.com/domestic-list?destination=1213&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"
                     + end.format(dateFormatter)
                     + "&page=" + page;
+
             String naverUlleungdo = "https://pkgtour.naver.com/domestic-list?destination=11491925&departureDate="
                     + start.format(dateFormatter)
                     + "%2C"

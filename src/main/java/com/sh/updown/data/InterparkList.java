@@ -19,7 +19,6 @@ public class InterparkList {
                     +"&endDate=" + end.format(dateFormatter)
                     + "&departure=%EC%B6%9C%EB%B0%9C%EC%A7%80+%EC%A0%84%EC%B2%B4";
 
-
         String interparkGangwondo = "https://travel.interpark.com/tour/search?category=domestic&q=강원&domain=t& "
                     + "startDate=" + start.format(dateFormatter)
                     +"&endDate=" + end.format(dateFormatter)
@@ -75,7 +74,6 @@ public class InterparkList {
             interparkList.add(interparkTongyeong);
             interparkList.add(interparkGyeongju);
             interparkList.add(interparkYeosu);
-
 
         return interparkList;
     }
