@@ -3,15 +3,14 @@ yum update -y
 
 # 필요한 패키지 설치 (예: wget, unzip)
 yum install -y wget unzip
-
 yum install -y atk
 # 필요한 패키지 설치 (예: wget, unzip, libdbus)
 yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdamage libXext libXi libXrandr libXtst libXss cups-libs dbus-glib GConf2
 
+# Chrome rpm 설치
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+yum install -y ./google-chrome-stable_current_x86_64.rpm
 
-# rpm으로 설치
-#wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-#yum install -y ./google-chrome-stable_current_x86_64.rpm
 
 # Chromedriver 설치
 echo "Downloading and installing Chromedriver..."
