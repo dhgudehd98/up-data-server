@@ -14,6 +14,8 @@ COPY start.sh /usr/local/bin/start.sh
 ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
 
 # Google Chrome 리포지토리 추가 및 설치
+# Google Chrome 리포지토리 추가 및 설치
+# Google Chrome 리포지토리 추가
 RUN echo "Adding Google Chrome repository..." \
     && cat <<EOF > /etc/yum.repos.d/google-chrome.repo
 [google-chrome]
@@ -23,8 +25,8 @@ enabled=1
 gpgcheck=1
 gpgkey=https://dl.google.com/linux/linux_signing_key.pub
 EOF
-    && yum install -y google-chrome-stable
-
+# Google Chrome 설치
+RUN yum install -y google-chrome-stable
 # 스크립트 실행 권한 부여 및 필요한 패키지 설치
 RUN chmod +x /usr/local/bin/start.sh \
     && yum update -y \
