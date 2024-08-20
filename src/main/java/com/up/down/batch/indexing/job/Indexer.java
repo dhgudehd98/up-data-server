@@ -1,10 +1,12 @@
 package com.up.down.batch.indexing.job;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.up.down.batch.common.entity.*;
 import com.up.down.batch.common.repository.ProductGroupRepository;
 import com.up.down.batch.common.repository.ProductRepository;
 import com.up.down.batch.indexing.entity.ProductGroupDoc;
 import com.up.down.batch.indexing.repository.ProductGroupDocRepository;
+import com.up.down.batch.indexing.service.ProductListJsonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +23,10 @@ public class Indexer {
     private final ProductGroupRepository productGroupRepo;
     // elastic repo
     private final ProductGroupDocRepository productGroupDocRepo;
+    // json convert service
+    private final ProductListJsonService jsonConvertService;
 
-    private final LocalDate currentDate = LocalDate.now();
+    private final LocalDate currentDate = LocalDate.now(); // DB에 저장된 데이터 중 금일 진행한 테이만 인덱싱
 
     public void storeInDatabase() {
         // 패키지 여행 상품 목록 조회
@@ -70,18 +74,23 @@ public class Indexer {
         // 기존 인덱싱 삭제
         this.productGroupDocRepo.deleteAll();
 
+
         // Elasticsearch에 인덱싱
         productGroups.forEach(productGroup -> {
-            ProductGroupDoc productGroupDoc = ProductGroupDoc.builder()
-                    .id(productGroup.getId())
-                    .searchKeywords(productGroup.getSearchKeywords().getSearchKeyword())
-                    .destination(productGroup.getDestination())
-                    .nights(productGroup.getNights())
-//                    .productList(productGroup.getProductList())
-                    .viewCount(productGroup.getViewCount())
-                    .build();
+            try {
+                ProductGroupDoc productGroupDoc = ProductGroupDoc.builder()
+                        .id(productGroup.getId())
+                        .searchKeywords(productGroup.getSearchKeywords().getSearchKeyword())
+                        .destination(productGroup.getDestination())
+                        .nights(productGroup.getNights())
+                        .productListJson(jsonConvertService.convertProductListToJson(productGroup.getProductList())) // JsonProcessingException
+                        .viewCount(productGroup.getViewCount())
+                        .build();
 
-            this.productGroupDocRepo.save(productGroupDoc);
+                this.productGroupDocRepo.save(productGroupDoc);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         });
     }
 

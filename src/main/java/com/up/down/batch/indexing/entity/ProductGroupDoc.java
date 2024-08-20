@@ -22,26 +22,17 @@ public class ProductGroupDoc {
     private Long id;
 
     @Field(type = FieldType.Text, analyzer = "nori", searchAnalyzer = "nori")
-    private String searchKeywords;
-//    private Set<SearchKeyword> searchKeywords;
+    private String searchKeywords; // 검색 키워드
 
     @Field(type = FieldType.Keyword)
-    private Destination destination;
-    @Field(type = FieldType.Integer)
-    private int nights;
+    private Destination destination; // 여행지
 
-//    @Field(type = FieldType.Object, ignoreFields = {"*"})
-//    private Map<Long, ProductInformation> productList;
     @Field(type = FieldType.Integer)
-    private int viewCount;
+    private int nights; // 숙박일
 
-    public ProductGroup toEntity() {
-        return ProductGroup.builder()
-                .id(id)
-                .destination(destination)
-                .nights(nights)
-//                .productList(productList)
-                .viewCount(viewCount)
-                .build();
-    }
+    @Field(type = FieldType.Text)  // JSON 문자열을 저장하기 위한 필드
+    private String productListJson; // 상품목록
+
+    @Field(type = FieldType.Integer)
+    private int viewCount; // 조회수
 }
