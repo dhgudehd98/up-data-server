@@ -27,7 +27,7 @@ logging:
 
 server:
   servlet:
-    context-path: /app
+    context-path: /crawling
 
 app:
   version: 0.0.1
