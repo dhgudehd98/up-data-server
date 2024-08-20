@@ -77,7 +77,7 @@ public class Indexer {
                     .searchKeywords(productGroup.getSearchKeywords().getSearchKeyword())
                     .destination(productGroup.getDestination())
                     .nights(productGroup.getNights())
-                    .productList(productGroup.getProductList())
+//                    .productList(productGroup.getProductList())
                     .viewCount(productGroup.getViewCount())
                     .build();
 

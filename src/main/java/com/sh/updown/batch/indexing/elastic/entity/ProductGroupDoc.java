@@ -28,13 +28,13 @@ public class ProductGroupDoc {
     private String searchKeywords;
 //    private Set<SearchKeyword> searchKeywords;
 
-    @Field(type = FieldType.Object)
+    @Field(type = FieldType.Keyword)
     private Destination destination;
     @Field(type = FieldType.Integer)
     private int nights;
 
-    @Field(type = FieldType.Object)
-    private Map<Long, ProductInformation> productList;
+//    @Field(type = FieldType.Object, ignoreFields = {"*"})
+//    private Map<Long, ProductInformation> productList;
     @Field(type = FieldType.Integer)
     private int viewCount;
 
@@ -43,7 +43,7 @@ public class ProductGroupDoc {
                 .id(id)
                 .destination(destination)
                 .nights(nights)
-                .productList(productList)
+//                .productList(productList)
                 .viewCount(viewCount)
                 .build();
     }

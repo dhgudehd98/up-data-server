@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Builder
 public class ProductInformation {
     @Enumerated(EnumType.STRING)
-    @Field(type = FieldType.Object)
+    @Field(type = FieldType.Keyword)
     private Destination destination; // 여행지
     private Integer nights; // 여행일
 
