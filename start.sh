@@ -15,11 +15,11 @@ yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdama
 
 # Chrome 다운로드 및 설치
 echo "Downloading and installing Chrome..."
-wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chrome-linux64.zip
-unzip  chrome-linux64.zip -d /usr/local/bin/
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+yum install -y ./google-chrome-stable_current_x86_64.rpm
 # 설치 완료 알림
-echo "Chrome Headless Shell setup complete."
-unzip chrome-linux64.zip -d /usr/local/bin/
+#echo "Chrome Headless Shell setup complete."
+#unzip chrome-linux64.zip -d /usr/local/bin/
 
 # 설치 완료 알림
 echo "Chrome setup complete."
