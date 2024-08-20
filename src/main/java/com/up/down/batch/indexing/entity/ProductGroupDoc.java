@@ -11,6 +11,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.time.LocalDate;
+
 @Document(indexName = "product_group")
 @Data
 @NoArgsConstructor
@@ -29,6 +31,9 @@ public class ProductGroupDoc {
 
     @Field(type = FieldType.Integer)
     private int nights; // 숙박일
+
+    @Field(type = FieldType.Date, format = {}, pattern = "uuuu-MM-dd")
+    private LocalDate startDate; // 여행 시작일
 
     @Field(type = FieldType.Text)  // JSON 문자열을 저장하기 위한 필드
     private String productListJson; // 상품목록

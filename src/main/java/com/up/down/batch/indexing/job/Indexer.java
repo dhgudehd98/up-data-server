@@ -33,28 +33,34 @@ public class Indexer {
         List<Product> products = this.productRepo.findByCreateDate(this.currentDate);
 
         // 패키지 여행 상품 그룹핑
-        Map<Map.Entry<Destination, Integer>, List<Product>> productByDestinationAndNights = products.stream()
+        Map<ProductGroupKey, List<Product>> productGroupByKey = products.stream()
                 .collect((Collectors.groupingBy(product ->
-                        new AbstractMap.SimpleEntry<>(
+                        new ProductGroupKey(
                                 product.getProductInformation().getDestination(),
-                                product.getProductInformation().getNights()
+                                product.getProductInformation().getNights(),
+                                product.getProductInformation().getStartDate()
                         )
                 )));
 
         // 패키지 여행 상품 그룹 생성
-        productByDestinationAndNights.forEach((key, productList) -> {
-            Destination destination = key.getKey();
-            Integer nights = key.getValue();
+        productGroupByKey.forEach((key, productList) -> {
+            Destination destination = key.destination(); // 여행지
+            int nights = key.nights(); // 숙박일
+            LocalDate startDate = key.startDate(); // 출발일
+
+            //
             Map<Long, ProductInformation> productInformationMap = productList.stream()
                     .collect((Collectors.toMap(Product::getId, Product::getProductInformation)));
-            Set<String> keywordSet = new HashSet<>();
+
+            Set<String> keywordSet = new HashSet<>(); // 검색 키워드 생성
             keywordSet.add(destination.getKorName());
-            keywordSet.addAll(getRandomThemesKeywordSet());
+            keywordSet.addAll(getRandomThemesKeywordSet()); // 랜덤 테마 2가지 삽입
 
             // 패키지 여행 상품 그룹 값 대입
             ProductGroup productGroup = ProductGroup.builder()
                     .destination(destination)
                     .nights(nights)
+                    .startDate(startDate)
                     .createDate(this.currentDate)
                     .searchKeywords(SearchKeyword.builder()
                             .keywordSet(keywordSet)
@@ -74,7 +80,6 @@ public class Indexer {
         // 기존 인덱싱 삭제
         this.productGroupDocRepo.deleteAll();
 
-
         // Elasticsearch에 인덱싱
         productGroups.forEach(productGroup -> {
             try {
@@ -83,6 +88,7 @@ public class Indexer {
                         .searchKeywords(productGroup.getSearchKeywords().getSearchKeyword())
                         .destination(productGroup.getDestination())
                         .nights(productGroup.getNights())
+                        .startDate(productGroup.getStartDate())
                         .productListJson(jsonConvertService.convertProductListToJson(productGroup.getProductList())) // JsonProcessingException
                         .viewCount(productGroup.getViewCount())
                         .build();

@@ -23,6 +23,8 @@ public class ProductGroup {
 
     private int nights; // 숙박일
 
+    private LocalDate startDate; // 여행 시작일
+
     // 관리 정보
     private LocalDate createDate; // 생성일
 
