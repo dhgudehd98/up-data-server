@@ -1,10 +1,10 @@
 package com.sh.updown.entity;
 
 import com.sh.updown.dto.ProductDto;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity

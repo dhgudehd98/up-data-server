@@ -1,48 +1,52 @@
 package com.sh.updown.batch.job;
 
-
 import com.sh.updown.chroling.Interpark;
 import com.sh.updown.chroling.Naver;
 import com.sh.updown.dto.ProductDto;
 import com.sh.updown.entity.Product;
+import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
+import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
-import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.persistence.EntityManagerFactory;
 import java.io.IOException;
 
-
 @Configuration
+@EnableBatchProcessing
 @Slf4j
 public class ChrolingJobConfiguration {
+
     private final EntityManagerFactory entityManagerFactory;
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
+    private final JobRepository jobRepository;
+    private final PlatformTransactionManager transactionManager;
     private final Naver naver;
     private final Interpark interpark;
 
-    @Autowired
-    public ChrolingJobConfiguration(EntityManagerFactory entityManagerFactory, JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, Naver naver, Interpark interpark) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
+    public ChrolingJobConfiguration(EntityManagerFactory entityManagerFactory,
+                                    JobRepository jobRepository,
+                                    PlatformTransactionManager transactionManager,
+                                    Naver naver,
+                                    Interpark interpark) {
         this.entityManagerFactory = entityManagerFactory;
+        this.jobRepository = jobRepository;
+        this.transactionManager = transactionManager;
         this.naver = naver;
         this.interpark = interpark;
     }
@@ -50,11 +54,8 @@ public class ChrolingJobConfiguration {
     @Bean
     public Job chrolingJob() throws Exception {
         log.debug("chrolingJob 메소드가 호출됐습니다.");
-        return jobBuilderFactory.get("chrolingJob")
+        return new JobBuilder("chrolingJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
-//                .start(startStep1())  // 수정: startStep1을 일반적인 Step으로 변경
-//                .split(taskExecutor())
-//                .add(interparkFlow(), naverFlow())
                 .start(naverFlow())
                 .end()
                 .build();
@@ -73,15 +74,6 @@ public class ChrolingJobConfiguration {
     }
 
     @Bean
-    public Step startStep1() {
-        return stepBuilderFactory.get("startStep1").tasklet((stepContribution, chunkContext) -> {
-            System.out.println("========Chorlling 시작 =======");
-            return RepeatStatus.FINISHED;
-        }).build();
-    }
-
-    @Bean
-//    @JobScope
     public Flow interparkFlow() throws Exception {
         log.info("Interpark Flow가 시작됩니다.");
         return new FlowBuilder<Flow>("interparkFlow")
@@ -90,7 +82,6 @@ public class ChrolingJobConfiguration {
     }
 
     @Bean
-//    @JobScope
     public Flow naverFlow() throws IOException {
         log.info("Naver Flow가 시작됩니다.");
         return new FlowBuilder<Flow>("naverFlow")
@@ -101,8 +92,8 @@ public class ChrolingJobConfiguration {
     @Bean
     public Step interparkChrolingStep() throws Exception {
         log.info("InterParkChrolling이 시작됩니다.");
-        return stepBuilderFactory.get("interparkChrolingStep")
-                .<ProductDto, Product>chunk(5)
+        return new StepBuilder("interparkChrolingStep", jobRepository)
+                .<ProductDto, Product>chunk(5, transactionManager)
                 .reader(interParkReader())
                 .processor(interParkProcessor())
                 .writer(interparkWriter())
@@ -136,8 +127,8 @@ public class ChrolingJobConfiguration {
     @Bean
     public Step naverChrolingStep() throws IOException {
         log.info("NaverChroling이 시작됩니다.");
-        return stepBuilderFactory.get("naverChrolingStep")
-                .<ProductDto, Product>chunk(5)
+        return new StepBuilder("naverChrolingStep", jobRepository)
+                .<ProductDto, Product>chunk(5, transactionManager)
                 .reader(naverReader())
                 .processor(naverProcessor())
                 .writer(naverWriter())

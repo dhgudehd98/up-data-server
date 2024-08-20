@@ -1,7 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.12'
-//    id 'org.springframework.boot' version '3.3.2'
+    id 'org.springframework.boot' version '3.3.2'
     id 'io.spring.dependency-management' version '1.1.6'
 }
 
@@ -36,23 +35,22 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    //jsoup
+    // jsoup
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.17.2'
 
-    //elastic Search
-    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-    implementation 'jakarta.json:jakarta.json-api:2.0.1'
+    // Elastic Search
+    implementation 'org.springframework.data:spring-data-elasticsearch:5.3.2'
 
-
-    //ChromDriver && Selenium
+    // ChromDriver & Selenium
     implementation 'io.github.bonigarcia:webdrivermanager:5.3.2'
     implementation 'org.seleniumhq.selenium:selenium-java:4.10.0'
 
-    //Spring batch
-    implementation group: 'org.springframework.batch', name: 'spring-batch-core', version: '4.3.3'
-    implementation group: 'org.springframework.batch', name: 'spring-batch-infrastructure', version: '4.3.3'
+    // Spring Batch (Update to 5.x)
+    implementation 'org.springframework.batch:spring-batch-core:5.0.2'
+    implementation 'org.springframework.batch:spring-batch-infrastructure:5.0.2'
     implementation 'org.springframework.boot:spring-boot-starter-batch'
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()

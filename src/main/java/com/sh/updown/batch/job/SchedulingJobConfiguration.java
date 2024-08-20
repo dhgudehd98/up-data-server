@@ -34,5 +34,7 @@ public class SchedulingJobConfiguration {
         log.info("Job 인스턴스: {}", chrolingJob);
 
         jobLauncher.run(chrolingJob, jobParameters);
+
+        log.info("Crawling Job Done!!!");
     }
 }
