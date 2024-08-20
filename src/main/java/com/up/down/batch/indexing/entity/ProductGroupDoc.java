@@ -1,4 +1,4 @@
-package com.up.down.batch.indexing.elastic.entity;
+package com.up.down.batch.indexing.entity;
 
 import com.up.down.batch.common.entity.Destination;
 import com.up.down.batch.common.entity.ProductGroup;
