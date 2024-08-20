@@ -17,7 +17,6 @@ public class NaverItemProcessor implements ItemProcessor<ProductDto, ProductEnti
 
     @Override
     public ProductEntity process(ProductDto productDto) throws Exception {
-        log.debug("Process 작업을 시작합니다.");
         ProductEntity product = productEntity.toEntity(productDto);
         return product;
     }

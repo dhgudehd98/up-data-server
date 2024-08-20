@@ -40,7 +40,7 @@ public class Interpark {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("/usr/bin/google-chrome");
+        options.setBinary("/usr/local/bin/chrome-linux64/chrome");
         options.addArguments("--no-sandbox"); // 샌드박스를 비활성화
         options.addArguments("--disable-dev-shm-usage"); // /dev/shm 사용 비활성화 (Docker 환경에서 필요할 수 있음)
         options.addArguments("--disable-gpu"); // GPU 사용 비활성화
