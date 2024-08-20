@@ -6,8 +6,8 @@ spring:
   batch:
     job:
       enabled: true
-    jdbc:
-      initialize-schema: always
+#    jdbc:
+#      initialize-schema: always # spring boot 3.x 버전에서는 더이상 동작하지 않음 직접 생성해줘야함
   jpa:
     show-sql: false
     hibernate:
@@ -23,7 +23,7 @@ spring:
 logging:
   level:
     root: info
-    com.sh.updown: debug
+    com.up.down: debug
 
 server:
   servlet:
