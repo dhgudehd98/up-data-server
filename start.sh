@@ -8,27 +8,10 @@ yum install -y atk
 # 필요한 패키지 설치 (예: wget, unzip, libdbus)
 yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdamage libXext libXi libXrandr libXtst libXss cups-libs dbus-glib GConf2
 
-# Chrome 다운로드 및 설치
-echo "Downloading and installing Chrome..."
-echo "Adding Google Chrome repository..."
-cat <<EOF > /etc/yum.repos.d/google-chrome.repo
-[google-chrome]
-name=google-chrome - \$basearch
-baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://dl.google.com/linux/linux_signing_key.pub
-EOF
-# Google Chrome 설치
-echo "Installing Google Chrome..."
-yum install -y google-chrome-stable
-# 설치 완료 알림
-echo "Chrome setup complete."
 
 # rpm으로 설치
 #wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 #yum install -y ./google-chrome-stable_current_x86_64.rpm
-
 
 # Chromedriver 설치
 echo "Downloading and installing Chromedriver..."
