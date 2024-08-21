@@ -91,6 +91,7 @@ public class Indexer {
                         .startDate(productGroup.getStartDate())
                         .productListJson(jsonConvertService.convertProductListToJson(productGroup.getProductList())) // JsonProcessingException
                         .viewCount(productGroup.getViewCount())
+                        .likeCount(productGroup.getLikeCount())
                         .build();
 
                 this.productGroupDocRepo.save(productGroupDoc);

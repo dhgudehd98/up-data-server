@@ -40,4 +40,7 @@ public class ProductGroupDoc {
 
     @Field(type = FieldType.Integer)
     private int viewCount; // 조회수
+
+    @Field(type = FieldType.Integer)
+    private int likeCount; // 좋아요
 }

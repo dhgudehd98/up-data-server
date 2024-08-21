@@ -42,4 +42,6 @@ public class ProductGroup {
     private Map<Long, ProductInformation> productList; // 상품 목록
 
     private int viewCount; // 조회수
+
+    private int likeCount; // 좋아요
 }
