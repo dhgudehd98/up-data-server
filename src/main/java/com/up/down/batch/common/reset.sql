@@ -1,4 +1,5 @@
-USE test_db;
+# USE test_db;
+USE traveldb;
 
 -- 모든 테이블 드롭
 SET FOREIGN_KEY_CHECKS = 0;
@@ -7,7 +8,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 SET @tables = NULL;
 SELECT GROUP_CONCAT('`', table_name, '`') INTO @tables
 FROM information_schema.tables
-WHERE table_schema = 'test_db';
+# WHERE table_schema = 'test_db';
+WHERE table_schema = 'traveldb';
 
 -- 생성된 DROP 명령어 실행
 SET @tables = IFNULL(@tables, 'dummy');
