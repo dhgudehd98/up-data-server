@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "tbl_product")
+@Table(name = "tbl_example")
 @Data
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor

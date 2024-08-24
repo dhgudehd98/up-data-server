@@ -3,20 +3,20 @@ spring:
     default: test
   application:
     name: up-data
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://223.130.155.16/traveldb
-#    username: upProject
-#    password: upProject_password1@
   batch:
     job:
       enabled: true
     jdbc:
       initialize-schema: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://223.130.155.16/traveldb
+    username: upProject
+    password: upProject_password1@
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true

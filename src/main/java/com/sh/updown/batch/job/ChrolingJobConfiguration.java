@@ -52,9 +52,10 @@ public class ChrolingJobConfiguration {
         log.debug("chrolingJob 메소드가 호출됐습니다.");
         return jobBuilderFactory.get("chrolingJob")
                 .incrementer(new RunIdIncrementer())
-                .start(startStep1())  // 수정: startStep1을 일반적인 Step으로 변경
-                .split(taskExecutor())
-                .add(interparkFlow(), naverFlow())
+                .start(interparkFlow())
+//                .start(startStep1())  // 수정: startStep1을 일반적인 Step으로 변경
+//                .split(taskExecutor())
+//                .add(interparkFlow(), naverFlow())
                 .end()
                 .build();
     }
