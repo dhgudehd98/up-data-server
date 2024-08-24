@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "tbl_example")
+@Table(name = "tbl_product")
 @Data
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor

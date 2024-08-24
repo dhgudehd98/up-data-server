@@ -20,6 +20,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Component
 @RequiredArgsConstructor
 public class Interpark {
@@ -34,17 +35,17 @@ public class Interpark {
 
         //ChromeDriver 옵션 설정 및 연결
         //로컬 환경에서의 Chromedriver 실행
-//        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver")
-
+        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
         //서버에서 chromedriver 구축
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-
+//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
-//        options.setBinary("/usr/local/bin/chrome-headless-shell-linux64/chrome-headless-shell");
-        options.addArguments("--no-sandbox"); // 샌드박스를 비활성화
-        options.addArguments("--disable-dev-shm-usage"); // /dev/shm 사용 비활성화 (Docker 환경에서 필요할 수 있음)
-        options.addArguments("--disable-gpu"); // GPU 사용 비활성화
-        options.addArguments("--headless"); // 헤드리스 모드로 실행
+//        options.setBinary("/usr/bin/google-chrome");
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox"); // 추가한 옵션
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu"); //추가한 옵션
+        options.addArguments("--ignore-ssl-errors=yes");
+        options.addArguments("--ignore-certificate-errors");
         options.addArguments("--remote-allow-origins=*"); // 원격 연결 허용
         WebDriver driver = new ChromeDriver(options);
 
@@ -86,17 +87,19 @@ public class Interpark {
                         WebElement placeElement = item.findElement(By.cssSelector("div.itemInfoMain > div.place"));
                         List<WebElement> placeSpans = placeElement.findElements(By.tagName("span"));
 
-                        String duration = "";
 
+                        String duration = "";
+                        int nights;
                         if (placeSpans.size() > 0) {
                             duration = placeSpans.get(0).getText().trim();
+                            nights = duration.charAt(0);
                         } else {
-                            System.out.println("기간 정보가 없습니다.");
+                           nights = 0;
                         }
 
                         ProductInformation travelInformation = ProductInformation.builder()
                                 .title(title) // 여행 제목
-                                .nights(Integer.parseInt(duration)) // 몇박 몇일
+                                .nights(nights) // 몇박 몇일
                                 .price(price) // 가격
                                 .thumbnailUrl(imageUrl) //여행지 이미지
                                 .detailUrl(detailLink) // 상품 상세페이지
@@ -115,12 +118,13 @@ public class Interpark {
                     }
                 }
             }
-            } catch(Exception e){
-                e.printStackTrace();
-            } finally{
-                // 브라우저 종료
-                driver.quit();
-            }
+        } catch(Exception e){
+            e.printStackTrace();
+        } finally{
+            // 브라우저 종료
+            driver.quit();
+        }
+
         return interparkList;
     }
 }

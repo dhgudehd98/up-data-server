@@ -21,6 +21,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
+import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -41,6 +42,8 @@ public class CrawlingJobConfig {
     private final Naver naver;
     private final Interpark interpark;
 
+
+
     public CrawlingJobConfig(EntityManagerFactory entityManagerFactory,
                              JobRepository jobRepository,
                              PlatformTransactionManager transactionManager, JobListener jobListener,
@@ -60,10 +63,18 @@ public class CrawlingJobConfig {
         return new JobBuilder("chrolingJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .listener(jobListener)
-                .start(naverFlow())
+                .start(startFlow())
                 .end()
                 .build();
     }
+
+    private Flow startFlow() throws Exception {
+        return new FlowBuilder<Flow>("startFlow")
+                .split(taskExecutor())
+                .add(interparkFlow(), naverFlow())
+                .build();
+    }
+
 
     @Bean
     public TaskExecutor taskExecutor() {

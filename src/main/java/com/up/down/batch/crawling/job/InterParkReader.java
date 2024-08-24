@@ -16,7 +16,6 @@ import java.util.List;
 public class InterParkReader implements ItemReader<ProductDto> {
     int index = 0;
     private List<ProductDto> interparkList = new ArrayList<>();
-
     private final Interpark interpark;
 
     public InterParkReader(Interpark interpark) throws Exception {
