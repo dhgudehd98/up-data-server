@@ -35,11 +35,11 @@ public class Interpark {
 
         //ChromeDriver 옵션 설정 및 연결
         //로컬 환경에서의 Chromedriver 실행
-        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
         //서버에서 chromedriver 구축
-//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
-//        options.setBinary("/usr/bin/google-chrome");
+        options.setBinary("/usr/bin/google-chrome");
         options.addArguments("--headless");
         options.addArguments("--no-sandbox"); // 추가한 옵션
         options.addArguments("--disable-dev-shm-usage");

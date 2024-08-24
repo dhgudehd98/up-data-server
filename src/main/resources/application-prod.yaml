@@ -8,3 +8,31 @@ spring:
     username: ${PROD_DB_USERNAME}
     password: ${PROD_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  batch:
+    job:
+      enabled: true
+  #    jdbc:
+  #      initialize-schema: always # spring boot 3.x 버전에서는 더이상 동작하지 않음 직접 생성해줘야함
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  elasticsearch:
+    uris: 101.79.11.20:9200
+    username: ${ELASTIC_USERNAME}
+    password: ${ELASTIC_PASSWORD}
+
+logging:
+  level:
+    root: info
+    com.up.down: debug
+
+server:
+  servlet:
+    context-path: /crawling
+
+app:
+  version: 0.0.1
