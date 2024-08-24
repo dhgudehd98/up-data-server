@@ -68,6 +68,8 @@ jobs:
             -e "PROD_DB_URL=${{ secrets.PROD_DB_URL }}" \
             -e "PROD_DB_USERNAME=${{ secrets.PROD_DB_USERNAME }}" \
             -e "PROD_DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD }}" \
+            -e "ELASTIC_USERNAME=${{ secrets.ELASTIC_USERNAME }}" \
+            -e "ELASTIC_PASSWORD=${{ secrets.ELASTIC_PASSWORD }}" \
             --name ${{ vars.APP_NAME }} \
             ${{ secrets.DOCKER_USERNAME }}/${{ vars.APP_NAME }}
             sudo docker image prune -f
