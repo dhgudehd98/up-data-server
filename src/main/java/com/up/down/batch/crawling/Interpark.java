@@ -7,6 +7,7 @@ import com.up.down.batch.common.dto.ProductDto;
 import com.up.down.batch.common.entity.Destination;
 import com.up.down.batch.common.entity.ProductInformation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,7 @@ import java.util.List;
 
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class Interpark {
 
@@ -35,11 +37,11 @@ public class Interpark {
 
         //ChromeDriver 옵션 설정 및 연결
         //로컬 환경에서의 Chromedriver 실행
-//        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
         //서버에서 chromedriver 구축
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("/usr/bin/google-chrome");
+//        options.setBinary("/usr/bin/google-chrome");
         options.addArguments("--headless");
         options.addArguments("--no-sandbox"); // 추가한 옵션
         options.addArguments("--disable-dev-shm-usage");
@@ -92,7 +94,8 @@ public class Interpark {
                         int nights;
                         if (placeSpans.size() > 0) {
                             duration = placeSpans.get(0).getText().trim();
-                            nights = duration.charAt(0);
+
+                            nights = Integer.parseInt(duration.charAt(0) + "");
                         } else {
                            nights = 0;
                         }
