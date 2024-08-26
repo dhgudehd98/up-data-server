@@ -41,9 +41,10 @@ public class Interpark {
         //ChromeDriver 옵션 설정 및 연결
         //로컬 환경에서의 Chromedriver 실행
 //        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
+
         //서버에서 chromedriver 구축
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         options.setBinary("/usr/bin/google-chrome");
         options.addArguments("--headless");
         options.addArguments("--no-sandbox"); // 추가한 옵션
@@ -64,13 +65,13 @@ public class Interpark {
 
                 WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.itemInfo > div.itemInfoTop > div.itemInfoMain > div.title")));
 
-                String site = "인터파크";
                 // 상품 요소 선택
                 List<WebElement> items = driver.findElements(By.cssSelector("div.resultContent > ul.tourCompSearchList > li"));
 
                 for (WebElement item : items) {
                     try {
 
+                        String site = "인터파크";
                         // 상세 링크
                         WebElement linkElement = item.findElement(By.cssSelector("a"));
                         String detailLink = linkElement.getAttribute("href");
@@ -131,7 +132,7 @@ public class Interpark {
                                 .startDate(startDate) // 시작 날짜
                                 .price(price) // 가격
                                 .thumbnailUrl(imageUrl) //여행지 이미지
-                                .travelAgency("인터파크")
+                                .travelAgency(site)
                                 .detailUrl(detailLink) // 상품 상세페이지
                                 .destination(destination)
                                 .build();
