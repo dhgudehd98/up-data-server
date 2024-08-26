@@ -18,6 +18,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +40,11 @@ public class Interpark {
 
         //ChromeDriver 옵션 설정 및 연결
         //로컬 환경에서의 Chromedriver 실행
-        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
         //서버에서 chromedriver 구축
-//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
-//        options.setBinary("/usr/bin/google-chrome");
+        options.setBinary("/usr/bin/google-chrome");
         options.addArguments("--headless");
         options.addArguments("--no-sandbox"); // 추가한 옵션
         options.addArguments("--disable-dev-shm-usage");
@@ -77,7 +80,6 @@ public class Interpark {
                         String imageUrl = imageElement.getAttribute("src");
 
                         // 제목
-
                         WebElement titleElement = item.findElement(By.cssSelector("div.itemInfo > div.itemInfoTop > div.itemInfoMain > div.title"));
                         String title = titleElement.getText().trim();
 
@@ -89,6 +91,30 @@ public class Interpark {
                         WebElement placeElement = item.findElement(By.cssSelector("div.itemInfoMain > div.place"));
                         List<WebElement> placeSpans = placeElement.findElements(By.tagName("span"));
 
+                        // 시작 날짜
+                        LocalDate startDate = null;
+                        try {
+                            // URL 패턴에서 날짜 추출하기
+                            // https://travel.interpark.com/tour/goods?goodsCd=24090430684
+                            String[] urlSplit = detailLink.split("goodsCd="); // "goodsCd="를 기준으로 URL을 분할
+                            if (urlSplit.length > 1) {
+                                String dateData = urlSplit[1]; // "goodsCd=" 뒤의 값을 추출
+                                if (dateData.length() >= 6) {
+                                    // dateData 에서 날짜로 사용될 수 있는 6자리 추출 (예: 240904)
+                                    String potentialDate = dateData.substring(0, 6);
+                                    // 날짜 형식 유효성 검사 (예: "20230826" 형태로 변환)
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+                                    try {
+                                        startDate = LocalDate.parse(potentialDate, formatter); // LocalDate로 변환
+                                    } catch (DateTimeParseException e) {
+                                        // 만약 parsing에 실패하면 null로 유지
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                         String duration = "";
                         int nights;
@@ -102,8 +128,10 @@ public class Interpark {
                         ProductInformation travelInformation = ProductInformation.builder()
                                 .title(title) // 여행 제목
                                 .nights(nights) // 몇박 몇일
+                                .startDate(startDate) // 시작 날짜
                                 .price(price) // 가격
                                 .thumbnailUrl(imageUrl) //여행지 이미지
+                                .travelAgency("인터파크")
                                 .detailUrl(detailLink) // 상품 상세페이지
                                 .destination(destination)
                                 .build();
