@@ -8,8 +8,10 @@ import java.util.List;
 public class InterparkList {
     List<String> interparkList = new ArrayList<>();
     LocalDate now = LocalDate.now();
-    LocalDate start = now.plusWeeks(1);
-    LocalDate end = start.plusWeeks(1);
+    LocalDate start = now.plusDays(2);
+    LocalDate end = start.plusDays(1);
+//    LocalDate start = now.plusWeeks(1);
+//    LocalDate end = start.plusDays(1);
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     public List<String> list() {

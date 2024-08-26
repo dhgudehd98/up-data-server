@@ -42,6 +42,12 @@ public class Naver {
 
           // 데이터 추출
           Elements items = doc.select("li.item.DomesticProduct");
+
+
+          if (items.isEmpty()) {
+              log.debug("패키지 여행 상품이 존재하지 않습니다.");
+              continue;
+          }
           for (Element item : items) {
               String site = "네이버 티켓 패키지";
               String title = item.selectFirst("b.name").text();
