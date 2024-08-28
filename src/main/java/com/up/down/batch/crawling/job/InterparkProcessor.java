@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 
 @Slf4j
-public class InterParkeProcessor implements ItemProcessor<ProductDto, Product> {
+public class InterparkProcessor implements ItemProcessor<ProductDto, Product> {
 
     Product product = new Product();
     @Override

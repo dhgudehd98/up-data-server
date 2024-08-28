@@ -19,7 +19,7 @@ import java.util.Date;
 @EnableScheduling
 public class SchedulingJob {
     private final JobLauncher jobLauncher;
-    private final Job chrolingJob;
+    private final Job crawlingJob;
 
     @PostConstruct
     public void runOnStartup() {
@@ -40,9 +40,9 @@ public class SchedulingJob {
                 .addLong("run.id", System.currentTimeMillis()) // 새로 추가된 고유 ID
                 .toJobParameters();
 
-        log.info("Job 인스턴스: {}", chrolingJob);
+        log.info("Job 인스턴스: {}", crawlingJob);
 
-        jobLauncher.run(chrolingJob, jobParameters);
+        jobLauncher.run(crawlingJob, jobParameters);
 
         log.info("Crawling Job Done!!!");
     }

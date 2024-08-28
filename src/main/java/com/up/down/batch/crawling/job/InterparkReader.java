@@ -13,12 +13,12 @@ import java.util.List;
 
 
 @Slf4j
-public class InterParkReader implements ItemReader<ProductDto> {
+public class InterparkReader implements ItemReader<ProductDto> {
     int index = 0;
     private List<ProductDto> interparkList = new ArrayList<>();
     private final Interpark interpark;
 
-    public InterParkReader(Interpark interpark) throws Exception {
+    public InterparkReader(Interpark interpark) throws Exception {
         this.interpark = interpark;
         this.interparkList = initialize();
     }

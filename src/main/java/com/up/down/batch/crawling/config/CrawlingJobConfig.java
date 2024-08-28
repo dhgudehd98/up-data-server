@@ -21,7 +21,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -58,9 +57,9 @@ public class CrawlingJobConfig {
     }
 
     @Bean
-    public Job chrolingJob() throws Exception {
-        log.debug("chrolingJob 메소드가 호출됐습니다.");
-        return new JobBuilder("chrolingJob", jobRepository)
+    public Job crawlingJob() throws Exception {
+        log.debug("crawlingJob 메소드가 호출됐습니다.");
+        return new JobBuilder("crawlingJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .listener(jobListener)
                 .start(startFlow())
@@ -92,7 +91,7 @@ public class CrawlingJobConfig {
     public Flow interparkFlow() throws Exception {
         log.info("Interpark Flow가 시작됩니다.");
         return new FlowBuilder<Flow>("interparkFlow")
-                .start(interparkChrolingStep())
+                .start(interparkCrawlingStep())
                 .build();
     }
 
@@ -100,33 +99,33 @@ public class CrawlingJobConfig {
     public Flow naverFlow() throws IOException {
         log.info("Naver Flow가 시작됩니다.");
         return new FlowBuilder<Flow>("naverFlow")
-                .start(naverChrolingStep())
+                .start(naverCrawlingStep())
                 .build();
     }
 
     @Bean
-    public Step interparkChrolingStep() throws Exception {
-        log.info("InterParkChrolling이 시작됩니다.");
-        return new StepBuilder("interparkChrolingStep", jobRepository)
+    public Step interparkCrawlingStep() throws Exception {
+        log.info("InterparkCrawling이 시작됩니다.");
+        return new StepBuilder("interparkcrawlingStep", jobRepository)
                 .<ProductDto, Product>chunk(5, transactionManager)
-                .reader(interParkReader())
-                .processor(interParkProcessor())
+                .reader(interparkReader())
+                .processor(interparkProcessor())
                 .writer(interparkWriter())
                 .build();
     }
 
     @Bean
     @StepScope
-    public ItemReader<? extends ProductDto> interParkReader() throws Exception {
+    public ItemReader<? extends ProductDto> interparkReader() throws Exception {
         log.info("==== InterPark ItemReader를 시작합니다. ====");
-        return new InterParkReader(interpark);
+        return new InterparkReader(interpark);
     }
 
     @Bean
     @StepScope
-    public ItemProcessor<ProductDto, Product> interParkProcessor() {
+    public ItemProcessor<ProductDto, Product> interparkProcessor() {
         log.info("==== InterPark ItemProcessor를 시작합니다. ====");
-        return new InterParkeProcessor();
+        return new InterparkProcessor();
     }
 
     @Bean
@@ -140,9 +139,9 @@ public class CrawlingJobConfig {
     }
 
     @Bean
-    public Step naverChrolingStep() throws IOException {
-        log.info("NaverChroling이 시작됩니다.");
-        return new StepBuilder("naverChrolingStep", jobRepository)
+    public Step naverCrawlingStep() throws IOException {
+        log.info("Navercrawling이 시작됩니다.");
+        return new StepBuilder("navercrawlingStep", jobRepository)
                 .<ProductDto, Product>chunk(5, transactionManager)
                 .reader(naverReader())
                 .processor(naverProcessor())
