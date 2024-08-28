@@ -63,7 +63,7 @@ jobs:
             fi
             
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ vars.APP_NAME }}
-            sudo docker run -d \
+            sudo docker run -d -e TZ=Asia/Seoul \
             -e "SPRING_PROFILES_ACTIVE=prod" \
             -e "PROD_DB_URL=${{ secrets.PROD_DB_URL }}" \
             -e "PROD_DB_USERNAME=${{ secrets.PROD_DB_USERNAME }}" \
