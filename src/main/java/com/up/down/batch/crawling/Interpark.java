@@ -9,6 +9,7 @@ import com.up.down.batch.common.entity.ProductInformation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -32,20 +33,21 @@ public class Interpark {
 
     //InterPark url을 가지고 있는 객체 선언
     InterparkList list = new InterparkList();
-    // interpark url을 가지고 있는 list 설정
-    List<String> url = list.list();
 
+    //상품을 반환할 List<ProductDto> 배열 선언  -> ItemReadeer에 전달
     List<ProductDto> interparkList = new ArrayList<>();
     public List<ProductDto> interparkChroling() throws Exception {
 
+        List<String> url = list.list();
+
         //ChromeDriver 옵션 설정 및 연결
         //로컬 환경에서의 Chromedriver 실행
-//        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
 
         //서버에서 chromedriver 구축
         ChromeOptions options = new ChromeOptions();
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        options.setBinary("/usr/bin/google-chrome");
+//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+//        options.setBinary("/usr/bin/google-chrome");
         options.addArguments("--headless");
         options.addArguments("--no-sandbox"); // 추가한 옵션
         options.addArguments("--disable-dev-shm-usage");
@@ -56,14 +58,20 @@ public class Interpark {
         WebDriver driver = new ChromeDriver(options);
 
         Destination[] destinations = Destination.values();
+
+
         try {
             for (int i = 0; i < url.size(); i++) {
                 driver.get(url.get(i));
                 Destination destination = destinations[i];
 
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                // 페이지가 완전히 로드될 때까지 대기
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+                wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
 
+                // 특정 요소가 로드될 때까지 대기
                 WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.itemInfo > div.itemInfoTop > div.itemInfoMain > div.title")));
+
 
                 // 상품 요소 선택
                 List<WebElement> items = driver.findElements(By.cssSelector("div.resultContent > ul.tourCompSearchList > li"));

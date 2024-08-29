@@ -23,9 +23,7 @@ public class NaverItemReader implements ItemReader<ProductDto> {
         this.dtoList = initialize();
     }
     public  List<ProductDto> initialize() throws IOException {
-        System.out.println("=============================");
-        System.out.println("NaverChrolling을 시작합니다.");
-        System.out.println("=============================");
+        log.debug("== Naver ItemReader Start ==");
         return naver.naverChroling();
     }
 

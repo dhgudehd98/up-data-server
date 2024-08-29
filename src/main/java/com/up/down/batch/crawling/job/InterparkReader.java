@@ -15,6 +15,8 @@ import java.util.List;
 @Slf4j
 public class InterparkReader implements ItemReader<ProductDto> {
     int index = 0;
+
+    // 크롤링한 데이터를 저장하는 배열
     private List<ProductDto> interparkList = new ArrayList<>();
     private final Interpark interpark;
 
@@ -24,9 +26,6 @@ public class InterparkReader implements ItemReader<ProductDto> {
     }
 
     public List<ProductDto> initialize() throws Exception {
-        System.out.println("=============================");
-        System.out.println("InterPark Chroling을 시작합니다.");
-        System.out.println("=============================");
         return interpark.interparkChroling();
     }
 

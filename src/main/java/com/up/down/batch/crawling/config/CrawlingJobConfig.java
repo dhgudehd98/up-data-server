@@ -58,7 +58,7 @@ public class CrawlingJobConfig {
 
     @Bean
     public Job crawlingJob() throws Exception {
-        log.debug("crawlingJob 메소드가 호출됐습니다.");
+        log.debug("== Crawling Job Start ==");
         return new JobBuilder("crawlingJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .listener(jobListener)
@@ -89,7 +89,7 @@ public class CrawlingJobConfig {
 
     @Bean
     public Flow interparkFlow() throws Exception {
-        log.info("Interpark Flow가 시작됩니다.");
+        log.info("== Interpark Crawling Start ==");
         return new FlowBuilder<Flow>("interparkFlow")
                 .start(interparkCrawlingStep())
                 .build();
@@ -97,7 +97,7 @@ public class CrawlingJobConfig {
 
     @Bean
     public Flow naverFlow() throws IOException {
-        log.info("Naver Flow가 시작됩니다.");
+        log.info("== Naver Crawling Start ==");
         return new FlowBuilder<Flow>("naverFlow")
                 .start(naverCrawlingStep())
                 .build();
@@ -105,7 +105,7 @@ public class CrawlingJobConfig {
 
     @Bean
     public Step interparkCrawlingStep() throws Exception {
-        log.info("InterparkCrawling이 시작됩니다.");
+        log.info("== Interpark Crawling Start ==");
         return new StepBuilder("interparkcrawlingStep", jobRepository)
                 .<ProductDto, Product>chunk(5, transactionManager)
                 .reader(interparkReader())

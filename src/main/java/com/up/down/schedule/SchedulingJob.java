@@ -30,8 +30,7 @@ public class SchedulingJob {
         }
     }
 
-
-    @Scheduled(cron = "0 */10 * * * *")
+    @Scheduled(cron = "0 0 9 * * *")
     public void scheduleJobLauncher() throws Exception {
         // 매 실행마다 고유한 JobParameters를 생성하여 새로운 JobInstance를 생성하도록 합니다.
         JobParameters jobParameters = new JobParametersBuilder()
@@ -46,4 +45,5 @@ public class SchedulingJob {
 
         log.info("Crawling Job Done!!!");
     }
+
 }
