@@ -1,12 +1,6 @@
-# up-data-server
-# 2024.08.06
-### Task  
-- 구축한 NCP 데이터 서버 연결 및 Spring boot 크롤링 작업 및 데이터 저장 
-### Difficult
-- Spring boot 2.7.12 버전과 호환되지 않는 Selenium 버전으로 인해서 크롤링 작업 실패 
-### ErrorCode
-- Websocket ContinueException 
-### Solution 
-- Jsoup으로 크롤링 작업 실행 
-  - NaverTour에서는 Jsoup을 이용해서 크롤링 작업을 성공할 수 있었으나 InterPark에서는 코드를 정확히 입력했음에도 불구하고, 크롤링 작업 실패 
-  - options.addArguments("--remote-allow-origins=*"); CORS 정책에 의해서 요청된 차단을 우회해서 ChromeDriver가 접속할 수 있도록 해주는 코드 
+# up-data-server 
+### 🚀[기본 어플리케이션 'up-and-down'](https://github.com/ssg-java3-240304/up-and-down)
+
+## 👀 up-and-down, up-data-server Architecture
+![](https://kr.object.ncloudstorage.com/up-bucket/Wiki/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202024-08-29%20%EC%98%A4%ED%9B%84%205.42.30.png)
+
