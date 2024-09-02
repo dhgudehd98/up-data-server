@@ -9,8 +9,11 @@ import java.util.List;
 public class InterparkList {
     List<String> interparkList = new ArrayList<>();
     LocalDate now = LocalDate.now();
-    LocalDate start = now.plusDays(2);//20240830
-    LocalDate end = start.plusDays(1);//20240831
+
+     LocalDate start = now.plusMonths(1);
+    LocalDate end = start.plusWeeks(1);
+
+    //start
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     public List<String> list() {

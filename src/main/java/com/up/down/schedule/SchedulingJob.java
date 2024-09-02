@@ -21,16 +21,7 @@ public class SchedulingJob {
     private final JobLauncher jobLauncher;
     private final Job crawlingJob;
 
-    @PostConstruct
-    public void runOnStartup() {
-        try {
-            scheduleJobLauncher();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-    }
-
-    @Scheduled(cron = "0 0 9 * * *")
+    @Scheduled(cron = "0 0 3 * * 1") //매주 월요일 새벽 3시에 작업하도록 실행
     public void scheduleJobLauncher() throws Exception {
         // 매 실행마다 고유한 JobParameters를 생성하여 새로운 JobInstance를 생성하도록 합니다.
         JobParameters jobParameters = new JobParametersBuilder()
