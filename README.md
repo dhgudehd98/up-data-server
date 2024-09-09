@@ -223,3 +223,117 @@ public class SchedulingJobConfiguration {
 
 ### 🏃‍♀️ Try 🏃
 
+**Dockerfile**
+```
+# 기본 이미지 설정
+FROM amazoncorretto:17
+
+# 유지 관리자 설정
+LABEL maintainer="up-data<ohd7150@gmail.com>"
+
+ARG JAR_FILE_PATH=build/libs/*.jar
+
+# 파일 복사
+COPY ${JAR_FILE_PATH} /data.jar
+COPY start.sh /usr/local/bin/start.sh
+
+RUN chmod +x /usr/local/bin/start.sh \
+    && yum update -y \
+    && yum install -y wget unzip atk dbus-libs libX11 libXcomposite libXcursor libXdamage libXext libXi libXrandr libXtst libXss cups-libs dbus-glib GConf2 libxcb at-spi2-atk
+
+# 엔트리 포인트 설정
+ENTRYPOINT ["/usr/local/bin/start.sh"]
+
+```
+**start.sh**
+```
+#!/bin/bash
+yum update -y
+
+# 필요한 패키지 설치 (예: wget, unzip)
+yum install -y wget unzip
+
+# Chrome 다운로드 및 설치
+
+# rpm으로 설치
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+yum install -y ./google-chrome-stable_current_x86_64.rpm
+
+# Chromedriver 설치
+wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chromedriver-linux64.zip
+unzip chromedriver-linux64.zip
+mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+chmod +x /usr/local/bin/chromedriver
+# Chromedriver 설치 확인
+if [ -f /usr/local/bin/chromedriver ]; then
+    echo "Chromedriver installed successfully."
+else
+    echo "Chromedriver installation failed."
+    exit 1
+
+# 애플리케이션 실행
+echo "Starting application..."
+exec java -jar /data.jar
+```
+
+**에러코드**
+```
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.batch.item.ItemReader]: Factory method 'interParkReader' threw exception; nested exception is org.openqa.selenium.SessionNotCreatedException: Could not start a new session. Response code 500. Message: session not created: Chrome failed to start: exited normally.
+  (session not created: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location /usr/bin/google-chrome is no longer running, so ChromeDriver is assuming that Chrome has crashed.)
+Build info: version: '4.1.4', revision: '535d840ee2'
+System info: host: '21c485367069', ip: '172.17.0.3', os.name: 'Linux', os.arch: 'amd64', os.version: '4.18.0-477.27.1.el8_8.x86_64', java.version: '17.0.12'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [null, newSession {capabilities=[Capabilities {browserName: chrome, goog:chromeOptions: {args: [--no-sandbox, --disable-dev-shm-usage, --enable-gpu, --disable-setuid-sandbox, --headless, --remote-allow-origins=*], binary: /usr/bin/google-chrome, extensions: []}}], desiredCapabilities=Capabilities {browserName: chrome, goog:chromeOptions: {args: [--no-sandbox, --disable-dev-shm-usage, --enable-gpu, --disable-setuid-sandbox, --headless, --remote-allow-origins=*], binary: /usr/bin/google-chrome, extensions: []}}}]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.3.27.jar!/:5.3.27]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-5.3.27.jar!/:5.3.27]
+	... 41 common frames omitted
+Caused by: org.openqa.selenium.SessionNotCreatedException: Could not start a new session. Response code 500. Message: session not created: Chrome failed to start: exited normally.
+  (session not created: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location /usr/bin/google-chrome is no longer running, so ChromeDriver is assuming that Chrome has crashed.)
+Build info: version: '4.1.4', revision: '535d840ee2'
+System info: host: '21c485367069', ip: '172.17.0.3', os.name: 'Linux', os.arch: 'amd64', os.version: '4.18.0-477.27.1.el8_8.x86_64', java.version: '17.0.12'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+```
+-> 이 에러코드는 Chrome과 Chromedriver의 버전이 동일하지 않은 경우 발생하는 에러
+버전을 확인하기 위해서 chromedriver --version, google-chrome --version을 확인 해봤지만 chromedrvier --version의 버전은 출력됐지만, google-chrome은 version이 출력되지 않은것을 확인.
+google-chrome이 설치되지 않은것으로 확인.
+
+
+### 🏁 Solution 🏁
+DockerFile의 배포이미지를 FROM amazoncorretto:17에서 FROM openjdk:17.0.1-jdk-slim 변경하여 해결 
+
+**DockerFile**
+```
+# 기본 이미지 설정
+FROM openjdk:17.0.1-jdk-slim
+# 유지 관리자 설정
+LABEL maintainer="up-data<ohd7150@gmail.com>"
+
+RUN apt-get -y update
+
+RUN apt -y install wget
+
+RUN apt -y install unzip
+
+RUN apt -y install curl
+
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+RUN apt -y install ./google-chrome-stable_current_amd64.deb
+
+RUN wget https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chromedriver-linux64.zip
+
+RUN unzip chromedriver-linux64.zip
+
+RUN mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+
+RUN chmod +x /usr/local/bin/chromedriver
+
+# 파일 환경 변수 설정
+ARG JAR_FILE_PATH=build/libs/*.jar
+# 파일 복사
+COPY ${JAR_FILE_PATH} /data.jar
+# 엔트리 포인트 설정
+ENTRYPOINT ["java", "-jar", "/data.jar"]
+```
