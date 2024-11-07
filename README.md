@@ -217,7 +217,7 @@ public class SchedulingJobConfiguration {
 1. JobParameters를 사용하는 경우
    - ItemReader, ItemProcessor, ItemWriter에서 JobParameters를 사용해야 한다면, 해당 빈들이 배치 잡이 실행 될 때 동적으로 생성되어야한다. 그렇지 않으면 JobParameter를 정상적으로 참조하지 못함.
 2. 동적 파라미터를 사용하는 경우
-  - 배치 작업은 실행 시점에 다양한 파라미터(Job Parameter)를 받아 처리해야 한다. @StepScope를 사용하면 스텝 실행 시점에 팔마ㅣ터를 주입할 수 있어, 동일한 배치 잡을 여러번 실행 할 때 각 실행마다 다른 파라미터를 사용할 수 있ㄷ다.
+  - 배치 작업은 실행 시점에 다양한 파라미터(Job Parameter)를 받아 처리해야 한다. @StepScope를 사용하면 스텝 실행 시점에 파라미터를 주입할 수 있어, 동일한 배치 잡을 여러번 실행 할 때 각 실행마다 다른 파라미터를 사용할 수 있ㄷ다.
 
 ## 2. Docker 이미지에서 Chrome 설치 과정에서 에러 발생 
 
